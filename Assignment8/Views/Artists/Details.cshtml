@@ -1,0 +1,82 @@
+﻿@model Assignment8.Controllers.ArtistBase
+
+@{
+    ViewBag.Title = "Artist Details";
+}
+
+<h2>Artist Details - @Html.DisplayFor(model => model.Name)</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+            <hr />
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BirthName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BirthName)
+            <hr />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BirthOrStartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BirthOrStartDate)
+            <hr />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UrlArtist)
+        </dt>
+
+        <dd>
+            <img src=@Html.DisplayFor(model => model.UrlArtist) height="200" width="250" />
+            <hr />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Genre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Genre)
+            <hr />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Profile)
+        </dt>
+
+        <dd>
+            @Html.Raw(Model.Profile)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @using System.Security.Claims;
+    @if ((User as ClaimsPrincipal).HasClaim(ClaimTypes.Role, "Executive"))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) 
+        @Html.Raw(" | ")
+    }
+    @Html.ActionLink("Back to List", "Index")
+    @using System.Security.Claims;
+    @if ((User as ClaimsPrincipal).HasClaim(ClaimTypes.Role, "Coordinator"))
+    {
+        @Html.Raw(" | ")
+        @Html.ActionLink("Add album for this artist", "AddAlbum") 
+    }
+    | @Html.ActionLink("Add media asset for this artist", "AddMediaItem")
+</p>
